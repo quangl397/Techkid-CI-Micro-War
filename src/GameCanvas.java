@@ -13,8 +13,8 @@ public class GameCanvas extends JPanel {
 
     ArrayList<PlayerBullet> bs;
 
-    int x = 300 - 32;
-    int y = 650 - 40;
+    int playerX = 300 - 32;
+    int playerY = 650 - 40;
 
     boolean upPressed = false;
     boolean downPressed = false;
@@ -91,30 +91,30 @@ public class GameCanvas extends JPanel {
     }
 
     void run() {
-        if (upPressed) {
-            y -= 3;
+        if (upPressed && (playerY >= 0)) {
+            playerY -= 3;
         }
 
-        if (downPressed) {
-            y += 3;
+        if (downPressed && (playerY <= 620)) {
+            playerY += 3;
         }
 
-        if (leftPressed) {
-            x -= 3;
+        if (leftPressed && (playerX >= 0)) {
+            playerX -= 3;
         }
 
-        if (rightPressed) {
-            x += 3;
+        if (rightPressed && playerX <= 520) {
+            playerX += 3;
         }
 
         for (PlayerBullet b: bs) {
             b.y -= 5;
         }
 
-        if (xPressed) {
+        if (xPressed && !shootLock) {
             PlayerBullet newB = new PlayerBullet();
-            newB.x = x + 8;
-            newB.y = y - 40;
+            newB.x = playerX + 8;
+            newB.y = playerY - 40;
             try {
                 newB.image = ImageIO.read(new File("images/bullet/player/mb69bullet1.png"));
             } catch (IOException e) {
@@ -138,7 +138,7 @@ public class GameCanvas extends JPanel {
 
     void render() {
         backBufferGraphics.drawImage(background, 0, 0, null);
-        backBufferGraphics.drawImage(player, x, y, null);
+        backBufferGraphics.drawImage(player, playerX, playerY, null);
         for (PlayerBullet b: bs) {
             backBufferGraphics.drawImage(b.image, b.x, b.y, null);
         }
