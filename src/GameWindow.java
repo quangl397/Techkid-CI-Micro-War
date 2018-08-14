@@ -16,18 +16,7 @@ public class GameWindow extends JFrame {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() ==  KeyEvent.VK_UP) {
-                    canvas.keyPressed(e);
-                }
-                else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    canvas.keyPressed(e);
-                }
-                else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    canvas.keyPressed(e);
-                }
-                else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    canvas.keyPressed(e);
-                }
+                canvas.keyPressed(e);
             }
 
             @Override
