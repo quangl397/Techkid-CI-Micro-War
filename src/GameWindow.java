@@ -4,6 +4,7 @@ import java.sql.SQLOutput;
 
 public class GameWindow extends JFrame {
     GameCanvas canvas;
+    long lastTimeRender = 0;
 
     public GameWindow() {
         // Setup game window
@@ -35,8 +36,7 @@ public class GameWindow extends JFrame {
         this.setVisible(true);
     }
 
-    long lastTimeRender = 0;
-
+    // Game Loop
     void mainLoop() {
         while (true) {
             long currentTime = System.nanoTime();

@@ -29,25 +29,12 @@ public class GameCanvas extends JPanel {
     public GameCanvas() {
         bs = new ArrayList<>();
 
-        PlayerBullet b1 = new PlayerBullet();
-        b1.x = 300;
-        b1.y = 200;
-
-        PlayerBullet b2 = new PlayerBullet();
-        b2.x = 200;
-        b2.y = 500;
-
         try {
             background = ImageIO.read(new File("images/background/background.png"));
             player = ImageIO.read(new File("images/player/MB-69/player1.png"));
-            b1.image = ImageIO.read(new File("images/bullet/player/mb69bullet1.png"));
-            b2.image = ImageIO.read(new File("images/bullet/player/mb69bullet1.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        bs.add(b1);
-        bs.add(b2);
 
         backBuffer = new BufferedImage(600, 800, BufferedImage.TYPE_INT_ARGB);
         backBufferGraphics = backBuffer.getGraphics();
@@ -125,7 +112,6 @@ public class GameCanvas extends JPanel {
         }
 
         if (xPressed) {
-            System.out.println("Shoot");
             PlayerBullet newB = new PlayerBullet();
             newB.x = x + 8;
             newB.y = y - 40;
@@ -140,7 +126,7 @@ public class GameCanvas extends JPanel {
 
         if (shootLock) {
             count++;
-            if (count > 1) {
+            if (count > 20) {
                 shootLock = false;
                 count = 0;
             }
