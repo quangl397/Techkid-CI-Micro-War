@@ -12,6 +12,7 @@ public class GameCanvas extends JPanel {
     Image player;
 
     ArrayList<PlayerBullet> bs;
+    ArrayList<Enemy> enemies;
 
     int playerX = 300 - 32;
     int playerY = 650 - 40;
@@ -22,12 +23,17 @@ public class GameCanvas extends JPanel {
     boolean rightPressed = false;
     boolean xPressed = false;
 
+    boolean shootLock = false;
+    int count;
+    boolean enemyDied = true;
+
     BufferedImage backBuffer;
     Graphics backBufferGraphics;
 
     // Load
     public GameCanvas() {
         bs = new ArrayList<>();
+        enemies = new ArrayList<>();
 
         try {
             background = ImageIO.read(new File("images/background/background.png"));
@@ -131,10 +137,44 @@ public class GameCanvas extends JPanel {
                 count = 0;
             }
         }
-    }
 
-    boolean shootLock = false;
-    int count;
+        for (Enemy n: enemies) {
+            n.y += 3;
+
+            if (n.y >= 800) {
+                n.y = -90;
+                enemyDied = true;
+            }
+        }
+
+        if (enemyDied) {
+            Enemy e1 = new Enemy();
+            e1.x = 100;
+            e1.y = -90;
+
+            Enemy e2 = new Enemy();
+            e2.x = 268;
+            e2.y = -90;
+
+            Enemy e3 = new Enemy();
+            e3.x = 450;
+            e3.y = -90;
+
+            try {
+                e1.image = ImageIO.read(new File("images/enemy/bacteria/bacteria1.png"));
+                e2.image = ImageIO.read(new File("images/enemy/bacteria/bacteria1.png"));
+                e3.image = ImageIO.read(new File("images/enemy/bacteria/bacteria1.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            enemies.add(e1);
+            enemies.add(e2);
+            enemies.add(e3);
+
+            enemyDied = false;
+        }
+    }
 
     void render() {
         backBufferGraphics.drawImage(background, 0, 0, null);
@@ -142,6 +182,10 @@ public class GameCanvas extends JPanel {
         for (PlayerBullet b: bs) {
             backBufferGraphics.drawImage(b.image, b.x, b.y, null);
         }
+        for (Enemy n: enemies) {
+            backBufferGraphics.drawImage(n.image, n.x, n.y, null);
+        }
+
         this.repaint();
     }
 }
