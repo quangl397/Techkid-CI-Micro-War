@@ -4,7 +4,6 @@ import java.sql.SQLOutput;
 
 public class GameWindow extends JFrame {
     GameCanvas canvas;
-    long lastTimeRender = 0;
 
     public GameWindow() {
         // Setup game window
@@ -17,12 +16,12 @@ public class GameWindow extends JFrame {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                canvas.keyPressed(e);
+                canvas.inputManager.keyPressed(e);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                canvas.keyReleased(e);
+                canvas.inputManager.keyReleased(e);
             }
         });
         this.setSize(600, 800);
@@ -38,10 +37,13 @@ public class GameWindow extends JFrame {
 
     // Game Loop
     void mainLoop() {
+        long lastTimeRender = 0;
+        long currentTime;
+
         while (true) {
-            long currentTime = System.nanoTime();
+            currentTime = System.nanoTime();
             if (currentTime - lastTimeRender >= 17_000_000) {
-                canvas.run();
+                canvas.update();
                 canvas.render();
                 lastTimeRender = currentTime;
             }
