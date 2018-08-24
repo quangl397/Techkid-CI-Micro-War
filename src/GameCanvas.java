@@ -30,16 +30,17 @@ public class GameCanvas extends JPanel {
 
         random = new Random();
 
-        player = new Player(268, 600);
         bullets = new ArrayList<>();
         enemies = new ArrayList<>();
+
+        player = new Player(268, 600);
+        player.bullets = this.bullets;
+        player.inputManager = inputManager;
 
         background = ImageUtil.load("images/background/background.png");
 
         backBuffer = new BufferedImage(600, 800, BufferedImage.TYPE_INT_ARGB);
         backBufferGraphics = backBuffer.getGraphics();
-
-        player.inputManager = inputManager;
     }
 
     // Draw
@@ -49,7 +50,7 @@ public class GameCanvas extends JPanel {
     }
 
     void update() {
-        player.update(bullets);
+        player.update();
 
         for (Enemy n: enemies) {
             n.update();
