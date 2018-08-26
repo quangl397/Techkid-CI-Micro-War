@@ -55,7 +55,7 @@ public class Player {
             velocity.x -= 3;
         }
 
-        if (inputManager.rightPressed && this.position.x <= 565) {
+        if (inputManager.rightPressed && this.position.x <= 550) {
             velocity.x += 3;
         }
 
