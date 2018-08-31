@@ -1,6 +1,9 @@
+package game;
+
+import inputs.InputManager;
+
 import javax.swing.*;
 import java.awt.event.*;
-import java.sql.SQLOutput;
 
 public class GameWindow extends JFrame {
     GameCanvas canvas;
@@ -16,12 +19,12 @@ public class GameWindow extends JFrame {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                canvas.inputManager.keyPressed(e);
+                InputManager.instance.keyPressed(e);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                canvas.inputManager.keyReleased(e);
+                InputManager.instance.keyReleased(e);
             }
         });
         this.setSize(600, 800);
@@ -36,7 +39,7 @@ public class GameWindow extends JFrame {
     }
 
     // Game Loop
-    void mainLoop() {
+    public void mainLoop() {
         long lastTimeRender = 0;
         long currentTime;
 

@@ -1,4 +1,8 @@
+package players;
+
 import java.awt.*;
+import bases.Vector2D;
+import bases.ImageUtil;
 
 public class PlayerBullet {
     Vector2D position;
@@ -15,7 +19,7 @@ public class PlayerBullet {
         this.position.addUp(velocity);
     }
 
-    void render(Graphics g) {
+    public void render(Graphics g) {
         g.drawImage(this.image, (int)this.position.x, (int)this.position.y, null);
     }
 }

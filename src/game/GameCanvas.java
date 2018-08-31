@@ -1,10 +1,14 @@
-import javax.imageio.ImageIO;
+package game;
+
+import bases.FrameCounter;
+import bases.ImageUtil;
+import enemies.Enemy;
+import players.Player;
+import players.PlayerBullet;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,12 +26,8 @@ public class GameCanvas extends JPanel {
 
     Random random;
 
-    InputManager inputManager;
-
     // Load
     public GameCanvas() {
-        inputManager = new InputManager();
-
         random = new Random();
 
         bullets = new ArrayList<>();
@@ -35,7 +35,6 @@ public class GameCanvas extends JPanel {
 
         player = new Player(268, 600);
         player.bullets = this.bullets;
-        player.inputManager = inputManager;
 
         background = ImageUtil.load("images/background/background.png");
 
@@ -56,14 +55,16 @@ public class GameCanvas extends JPanel {
             n.update();
         }
 
-        if (enemySpawnCount >= 60) {
-            enemySpawnCount = 0;
+        FrameCounter frameCounter = new FrameCounter(60);
+
+        if (!frameCounter.expired) {
             int posX = random.nextInt(556);
             Enemy enemy = new Enemy(posX, 0);
             enemies.add(enemy);
+            frameCounter.reset();
         }
         else {
-            enemySpawnCount++;
+            frameCounter.run();
         }
     }
 
