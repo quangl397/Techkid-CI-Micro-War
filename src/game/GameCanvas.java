@@ -1,8 +1,10 @@
 package game;
 
 import bases.FrameCounter;
-import bases.ImageUtil;
+import bases.GameObject;
 import enemies.Enemy;
+import enemies.EnemyBullet;
+import inputs.InputManager;
 import players.Player;
 import players.PlayerBullet;
 
@@ -11,76 +13,59 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+import bases.ImageUtil;
 
 public class GameCanvas extends JPanel {
     Image background;
 
     Player player;
-    ArrayList<PlayerBullet> bullets;
-    ArrayList<Enemy> enemies;
-
-    int enemySpawnCount;
 
     BufferedImage backBuffer;
     Graphics backBufferGraphics;
 
     Random random;
 
-    // Load
+    FrameCounter frameCounter;
+
     public GameCanvas() {
         random = new Random();
+        frameCounter = new FrameCounter(100);
 
-        bullets = new ArrayList<>();
-        enemies = new ArrayList<>();
-
-        player = new Player(268, 600);
-        player.bullets = this.bullets;
+        player = new Player(300, 650);
+        GameObject.add(player);
 
         background = ImageUtil.load("images/background/background.png");
 
-        backBuffer = new BufferedImage(600, 800, BufferedImage.TYPE_INT_ARGB);
+        backBuffer = new BufferedImage(600,800,BufferedImage.TYPE_INT_ARGB);
         backBufferGraphics = backBuffer.getGraphics();
     }
 
-    // Draw
     @Override
-    protected void paintComponent(Graphics g) {
-        g.drawImage(backBuffer, 0, 0, null);
+    public void paint(Graphics graphics) {
+        graphics.drawImage(backBuffer,0,0,null);
     }
 
-    void update() {
-        player.update();
 
-        for (Enemy n: enemies) {
-            n.update();
-        }
+    void run() {
+        GameObject.runAll();
 
-        FrameCounter frameCounter = new FrameCounter(60);
+        enemySpawn();
+    }
 
-        if (!frameCounter.expired) {
-            int posX = random.nextInt(556);
-            Enemy enemy = new Enemy(posX, 0);
-            enemies.add(enemy);
+    void enemySpawn() {
+        frameCounter.run();
+        if (frameCounter.expired) {
             frameCounter.reset();
-        }
-        else {
-            frameCounter.run();
+            Enemy newEnemy = new Enemy(random.nextInt(600), -64);
+            GameObject.add(newEnemy);
         }
     }
 
     void render() {
-        backBufferGraphics.drawImage(background, 0, 0, null);
-        player.render(backBufferGraphics);
+        backBufferGraphics.drawImage(background,0,0, null);
 
-        for (PlayerBullet n: bullets) {
-            n.render(backBufferGraphics);
-        }
-
-        for (Enemy n: enemies) {
-            n.render(backBufferGraphics);
-        }
+        GameObject.renderAll(backBufferGraphics);
 
         this.repaint();
     }
 }
-

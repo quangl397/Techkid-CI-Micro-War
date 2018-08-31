@@ -1,26 +1,27 @@
 package players;
 
 import bases.FrameCounter;
+import bases.GameObject;
+import bases.Vector2D;
 import inputs.InputManager;
 
 public class PlayerShoot {
-    FrameCounter frameCounter;
-    boolean shootLock = false;
+    private boolean shootLock;
+    FrameCounter frameCounter = new FrameCounter(50);
 
     void run(Player player) {
-        frameCounter = new FrameCounter(20);
-
-        if (InputManager.instance.xPressed && !this.shootLock) {
-            PlayerBullet newB = new PlayerBullet((int) player.position.x + 8, (int) player.position.y - 40);
-            player.bullets.add(newB);
-            this.shootLock = true;
+        if (InputManager.instance.xPressed && !shootLock) {
+            Vector2D bulletPosition = player.position.subtract(0, 50);
+            PlayerBullet newB = new PlayerBullet((int)bulletPosition.x,(int)bulletPosition.y);
+            GameObject.add(newB);
+            shootLock = true;
         }
 
-        if (this.shootLock) {
+        if (shootLock) {
             frameCounter.run();
             if (frameCounter.expired) {
-                this.shootLock = false;
                 frameCounter.reset();
+                shootLock = false;
             }
         }
     }

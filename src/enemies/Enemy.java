@@ -1,38 +1,49 @@
 package enemies;
 
-import bases.ImageRenderer;
-import bases.Vector2D;
-
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
-public class Enemy {
-    Vector2D position;
-    ImageRenderer imageRenderer;
-    //EnemyMove enemyMove;
+import bases.GameObject;
+import bases.ImageRenderer;
+
+public class Enemy extends GameObject {
+    public ArrayList<EnemyBullet> enemyBullets;
+    Random random;
+
     EnemyShoot enemyShoot;
-
-    public ArrayList<EnemyBullet> bullets;
+    EnemyMove enemyMove;
 
     public Enemy(int x, int y) {
-        this.position = new Vector2D(x, y);
+        super(x, y);
         imageRenderer = new ImageRenderer("images/enemy/bacteria/bacteria1.png");
+        random = new Random();
+        enemyMove = new EnemyMove();
+        enemyShoot = new EnemyShoot();
+        enemyBullets = new ArrayList<>();
     }
 
-    public void update() {
-        Vector2D velocity = new Vector2D();
-        velocity.y += 3;
-        this.position.addUp(velocity);
+    public void run() {
+        this.move();
+        this.shoot();
 
-        enemyShoot = new EnemyShoot();
-        enemyShoot.run(this);
-
-        for (EnemyBullet n: bullets) {
-            n.update();
+        for (EnemyBullet e: enemyBullets) {
+            e.run();
         }
+    }
+    public void shoot() {
+        this.enemyShoot.run(this);
+    }
+
+    public void move() {
+        this.enemyMove.run(position);
     }
 
     public void render(Graphics g) {
         imageRenderer.render(g, this.position);
+
+        for (EnemyBullet e: enemyBullets) {
+            e.render(g);
+        }
     }
 }

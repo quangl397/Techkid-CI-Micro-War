@@ -1,33 +1,28 @@
 package players;
 
-import inputs.InputManager;
 import bases.Vector2D;
+import inputs.InputManager;
 
-class PlayerMove {
-    Vector2D position;
-
-    PlayerMove(Vector2D position) {
-        this.position = position;
-    }
-
-    void run() {
+public class PlayerMove {
+    void run(Vector2D position) {
         Vector2D velocity = new Vector2D();
-        if (InputManager.instance.upPressed && (this.position.y >= 0)) {
-            velocity.y -= 3;
-        }
 
-        if (InputManager.instance.downPressed && (this.position.y <= 600)) {
-            velocity.y += 3;
-        }
-
-        if (InputManager.instance.leftPressed && (this.position.x >= -30)) {
-            velocity.x -= 3;
-        }
-
-        if (InputManager.instance.rightPressed && this.position.x <= 550) {
+        if (InputManager.instance.rightPressed) {
             velocity.x += 3;
         }
 
-        this.position.addUp(velocity);
+        if (InputManager.instance.leftPressed) {
+            velocity.x -= 3;
+        }
+
+        if (InputManager.instance.upPressed) {
+            velocity.y -= 3;
+        }
+
+        if (InputManager.instance.downPressed) {
+            velocity.y += 3;
+        }
+
+        position.addUp(velocity);
     }
 }
