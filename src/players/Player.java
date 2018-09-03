@@ -1,15 +1,11 @@
 package players;
 
-import java.util.ArrayList;
-
 import bases.GameObject;
 import bases.ImageRenderer;
 
 public class Player extends GameObject {
     PlayerMove playerMove;
     PlayerShoot playerShoot;
-
-    public ArrayList<PlayerBullet> bullets;
 
     public Player(int x, int y) {
         super(x, y);

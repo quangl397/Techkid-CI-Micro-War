@@ -20,16 +20,12 @@ public class Enemy extends GameObject {
         random = new Random();
         enemyMove = new EnemyMove();
         enemyShoot = new EnemyShoot();
-        enemyBullets = new ArrayList<>();
     }
 
     public void run() {
+        super.run();
         this.move();
         this.shoot();
-
-        for (EnemyBullet e: enemyBullets) {
-            e.run();
-        }
     }
     public void shoot() {
         this.enemyShoot.run(this);
@@ -37,13 +33,5 @@ public class Enemy extends GameObject {
 
     public void move() {
         this.enemyMove.run(position);
-    }
-
-    public void render(Graphics g) {
-        imageRenderer.render(g, this.position);
-
-        for (EnemyBullet e: enemyBullets) {
-            e.render(g);
-        }
     }
 }
