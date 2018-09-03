@@ -19,7 +19,7 @@ public class BloodCellSpawner {
         frameCounter.run();
         if (frameCounter.expired) {
             frameCounter.reset();
-            BloodCell newBloodCell = new BloodCell(700, random.nextInt(700));
+            BloodCell newBloodCell = new BloodCell(600, random.nextInt(700));
             GameObject.add(newBloodCell);
         }
     }

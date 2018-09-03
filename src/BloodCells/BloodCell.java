@@ -2,7 +2,6 @@ package BloodCells;
 
 import bases.GameObject;
 import bases.ImageRenderer;
-import bases.Vector2D;
 
 public class BloodCell extends GameObject {
     public BloodCell(int x, int y) {
