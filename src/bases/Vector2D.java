@@ -22,7 +22,7 @@ public class Vector2D {
         this.addUp(other.x, other.y);
     }
 
-    Vector2D add(float x, float y) {
+    public Vector2D add(float x, float y) {
         return new Vector2D(this.x + x, this.y + y);
     }
 

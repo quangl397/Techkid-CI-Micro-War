@@ -23,16 +23,13 @@ public class GameCanvas extends JPanel {
     BufferedImage backBuffer;
     Graphics backBufferGraphics;
 
-    Random random;
-
-    FrameCounter frameCounter;
+    EnemySpawner enemySpawner;
 
     public GameCanvas() {
-        random = new Random();
-        frameCounter = new FrameCounter(100);
-
         player = new Player(300, 650);
         GameObject.add(player);
+
+        enemySpawner = new EnemySpawner();
 
         background = ImageUtil.load("images/background/background.png");
 
@@ -49,17 +46,10 @@ public class GameCanvas extends JPanel {
     void run() {
         GameObject.runAll();
 
-        enemySpawn();
+        enemySpawner.run();
     }
 
-    void enemySpawn() {
-        frameCounter.run();
-        if (frameCounter.expired) {
-            frameCounter.reset();
-            Enemy newEnemy = new Enemy(random.nextInt(600), -64);
-            GameObject.add(newEnemy);
-        }
-    }
+
 
     void render() {
         backBufferGraphics.drawImage(background,0,0, null);
