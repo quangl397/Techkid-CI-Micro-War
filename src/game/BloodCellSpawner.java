@@ -6,16 +6,17 @@ import bases.GameObject;
 
 import java.util.Random;
 
-public class BloodCellSpawner {
+public class BloodCellSpawner extends GameObject {
     Random random;
     FrameCounter frameCounter;
 
     BloodCellSpawner() {
+        super(0, 0);
         random = new Random();
         frameCounter = new FrameCounter(100);
     }
 
-    void run() {
+    public void run() {
         frameCounter.run();
         if (frameCounter.expired) {
             frameCounter.reset();

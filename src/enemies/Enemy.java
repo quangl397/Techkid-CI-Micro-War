@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import bases.BoxCollider;
 import bases.GameObject;
 import bases.ImageRenderer;
 
@@ -20,6 +21,7 @@ public class Enemy extends GameObject {
         random = new Random();
         enemyMove = new EnemyMove();
         enemyShoot = new EnemyShoot();
+        this.boxCollider = new BoxCollider(x, y, 30, 30);
     }
 
     public void run() {
@@ -27,11 +29,21 @@ public class Enemy extends GameObject {
         this.move();
         this.shoot();
     }
+
+    public void getHit() {
+        this.destroy();
+    }
+
     public void shoot() {
         this.enemyShoot.run(this);
     }
 
     public void move() {
         this.enemyMove.run(position);
+    }
+
+    @Override
+    public void render(Graphics g) {
+        super.render(g);
     }
 }

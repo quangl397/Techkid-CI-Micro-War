@@ -7,5 +7,6 @@ public class EnemyMove {
         Vector2D velocity = new Vector2D();
         velocity.y += 3;
         position.addUp(velocity);
+
     }
 }

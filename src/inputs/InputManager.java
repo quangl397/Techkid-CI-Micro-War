@@ -1,6 +1,7 @@
 package inputs;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public class InputManager {
     public boolean rightPressed = false;
@@ -8,6 +9,8 @@ public class InputManager {
     public boolean upPressed = false;
     public boolean downPressed = false;
     public boolean xPressed = false;
+    public int mx;
+    public int my;
 
     public static InputManager instance = new InputManager();
 
@@ -45,5 +48,10 @@ public class InputManager {
         else if (e.getKeyCode() == KeyEvent.VK_X) {
             xPressed = false;
         }
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        mx = e.getX();
+        my = e.getY();
     }
 }

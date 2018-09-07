@@ -1,8 +1,8 @@
 package game;
 
-import BloodCells.BloodCell;
 import bases.GameObject;
 import players.Player;
+import Player2.Player2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +12,7 @@ public class GameCanvas extends JPanel {
     Background background;
 
     Player player;
+    Player2 player2;
 
     BufferedImage backBuffer;
     Graphics backBufferGraphics;
@@ -26,8 +27,12 @@ public class GameCanvas extends JPanel {
         player = new Player(300, 650);
         GameObject.add(player);
 
-        enemySpawner = new EnemySpawner();
-        bloodCellSpawner = new BloodCellSpawner();
+        player2 = new Player2(400, 650);
+        GameObject.add(player2);
+
+        GameObject.add(new EnemySpawner());
+
+        GameObject.add(new BloodCellSpawner());
 
         backBuffer = new BufferedImage(600,800,BufferedImage.TYPE_INT_ARGB);
         backBufferGraphics = backBuffer.getGraphics();
@@ -40,8 +45,6 @@ public class GameCanvas extends JPanel {
 
     void run() {
         GameObject.runAll();
-        enemySpawner.run();
-        bloodCellSpawner.run();
     }
 
     void render() {
