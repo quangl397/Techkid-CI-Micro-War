@@ -1,6 +1,7 @@
 package bases;
 
 import enemies.Enemy;
+import players.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,18 +37,36 @@ public class GameObject {
         newGameObjects.clear();
     }
 
-    public static Enemy checkCollision(BoxCollider boxCollider) {
+    public static Enemy checkCollisionOfEnemy(BoxCollider boxCollider) {
+        Enemy result = null;
+
         for (GameObject go: gameObjects) {
             if (go.isActive && go.boxCollider != null) {
                 if (go instanceof Enemy){
                     if (go.boxCollider.collideWith(boxCollider)) {
-                        return (Enemy)go;
+                        result = (Enemy)go;
                     }
                 }
             }
         }
 
-        return null;
+        return result;
+    }
+
+    public static Player checkCollisionOfPlayer(BoxCollider boxCollider) {
+        Player result = null;
+
+        for (GameObject go: gameObjects) {
+            if (go.isActive && go.boxCollider != null) {
+                if (go instanceof Player){
+                    if (go.boxCollider.collideWith(boxCollider)) {
+                        result = (Player) go;
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 
     public BoxCollider boxCollider;

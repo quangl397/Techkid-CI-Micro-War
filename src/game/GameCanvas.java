@@ -17,9 +17,6 @@ public class GameCanvas extends JPanel {
     BufferedImage backBuffer;
     Graphics backBufferGraphics;
 
-    EnemySpawner enemySpawner;
-    BloodCellSpawner bloodCellSpawner;
-
     public GameCanvas() {
         background = new Background(300, 400);
         GameObject.add(background);

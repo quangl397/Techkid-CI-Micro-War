@@ -1,5 +1,6 @@
 package players;
 
+import bases.BoxCollider;
 import bases.GameObject;
 import bases.ImageRenderer;
 
@@ -12,6 +13,7 @@ public class Player extends GameObject {
         imageRenderer = new ImageRenderer("images/player/MB-69/player1.png");
         playerMove = new PlayerMove();
         playerShoot = new PlayerShoot();
+        this.boxCollider = new BoxCollider(x, y, 50, 50);
     }
 
     public void run() {
@@ -26,5 +28,9 @@ public class Player extends GameObject {
 
     void shoot() {
         this.playerShoot.run(this);
+    }
+
+    public void getHit() {
+        this.destroy();
     }
 }
