@@ -10,6 +10,7 @@ public class GameObject {
     public Vector2D position;
     public ImageRenderer imageRenderer;
     public boolean isActive;
+    public static boolean isDead;
 
     private static ArrayList<GameObject> gameObjects = new ArrayList<>();
     private static ArrayList<GameObject> newGameObjects = new ArrayList<>();
@@ -20,7 +21,7 @@ public class GameObject {
 
     public static void runAll() {
         for (GameObject g: gameObjects) {
-            if (g.isActive) {
+            if (g.isActive && !g.isDead) {
                 g.run();
             }
         }
@@ -28,7 +29,7 @@ public class GameObject {
 
     public static void renderAll(Graphics g) {
         for (GameObject gr: gameObjects) {
-            if (gr.isActive) {
+            if (gr.isActive && !gr.isDead) {
                 gr.render(g);
             }
         }
@@ -76,6 +77,7 @@ public class GameObject {
         this.imageRenderer = null; // not yet specified
         this.boxCollider = null;
         this.isActive = true;
+        this.isDead = false;
     }
 
     public void run() {
@@ -98,5 +100,9 @@ public class GameObject {
 
     public void destroy() {
         this.isActive = false;
+    }
+
+    public void gameOver() {
+        this.isDead = true;
     }
 }

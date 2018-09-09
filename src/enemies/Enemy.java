@@ -7,6 +7,7 @@ import java.util.Random;
 import bases.BoxCollider;
 import bases.GameObject;
 import bases.ImageRenderer;
+import players.Player;
 
 public class Enemy extends GameObject {
     public ArrayList<EnemyBullet> enemyBullets;
@@ -28,6 +29,15 @@ public class Enemy extends GameObject {
         super.run();
         this.move();
         this.shoot();
+        this.hitPlayers();
+    }
+
+    private void hitPlayers() {
+        Player player = GameObject.checkCollisionOfPlayer(this.boxCollider);
+
+        if (player != null) {
+            player.getHit();
+        }
     }
 
     public void getHit() {

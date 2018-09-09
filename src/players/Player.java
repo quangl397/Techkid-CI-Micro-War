@@ -31,6 +31,6 @@ public class Player extends GameObject {
     }
 
     public void getHit() {
-        this.destroy();
+        this.gameOver();
     }
 }
